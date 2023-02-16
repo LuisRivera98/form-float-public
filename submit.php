@@ -19,8 +19,8 @@ if (isset($_POST['submit'])) {
             "Gender: " . $genre . "\n" .
             "Employee Status: " . $status;
 
-        $headers = "From: " . $email;
-        if (mail($emailsend, $subject, $message, $headers)) {
+        $headers = "From: " . $emailsend;
+        if (mail($to, $subject, $message, $headers)) {
             header("Location: index.php?s=thanks");
             die();
         } else {
