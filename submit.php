@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
         $to = "ryd@idisk.com.mx"; //poner direccion de envio 
         $subject = "Nuevo formulario enviado desde el sitio web";
         $message = "Name: " . $name . "\n" .
-            "Surnaame: " . $surname . "\n" .
+            "Surname: " . $surname . "\n" .
             "Email: " . $email . "\n" .
             "Phone number: " . $tel . "\n" .
             "Gender: " . $genre . "\n" .
