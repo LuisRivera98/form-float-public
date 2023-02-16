@@ -70,7 +70,6 @@
     form input[type="email"],
     form input[type="tel"] {
       width: 100%;
-      /*padding: 10px;*/
       margin-bottom: 20px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -98,13 +97,9 @@
 
     .custom-select {
       appearance: none;
-      /*padding: 10px;*/
       margin-bottom: 20px;
       background-color: #fff;
-      /* border: 1px solid #ccc;
-      border-radius: 5px;
-      */
-      /* padding: 10px;*/
+
       font-size: 16px;
     }
 
@@ -147,7 +142,7 @@
       form {
         padding: 35px;
         width: 20%;
-        height: auto;
+        height: auto; 
       }
     }
 
@@ -167,32 +162,32 @@
       width: 100%;
     }
 
-  .alert-danger {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-}
+    .alert-danger {
+      padding: 20px;
+      background-color: #f44336;
+      color: white;
+    }
 
-  .alert-succes {
-  padding: 20px;
-  background-color: #04AA6D;
-  color: white;
-}
+    .alert-succes {
+      padding: 20px;
+      background-color: #04AA6D;
+      color: white;
+    }
 
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-.closebtn:hover {
-  color: black;
-}
+    .closebtn:hover {
+      color: black;
+    }
 
     .footer {
       position: fixed;
@@ -211,8 +206,7 @@
 
     .footer-links li {
       display: inline-block;
-      /*margin-right: 10px;
-    */
+
     }
 
     .footer-div {
@@ -227,19 +221,36 @@
   <script>
     // JavaScript function to validate the form fields
     function validateForm() {
-      var name = document.forms["subscriptionForm"]["name"].value;
-      var name = document.forms["subscriptionForm"]["surname"].value;
-      var name = document.forms["subscriptionForm"]["genre"].value;
-      var email = document.forms["subscriptionForm"]["email"].value;
+      const name = document.forms["subscriptionForm"]["name"].value;
+      const surname = document.forms["subscriptionForm"]["surname"].value;
+      const email = document.forms["subscriptionForm"]["email"].value;
+      const tel = document.forms["subscriptionForm"]["tel"].value;
+      const genre = document.forms["subscriptionForm"]["genre"].value;
+      const status = document.forms["subscriptionForm"]["status"].value;
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const telRegex = /^\d{10}$/;
+      const alertzone = document.getElementById("alertzone");
 
-      if (name == "" || email == "") {
-        alert("Name and Email are required fields.");
+      if (name == "" || surname == "") {
+        alert("Please enter your name and surname");
         return false;
       }
-      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        alert("Invalid email address.");
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address");
         return false;
       }
+
+      if (!telRegex.test(tel)) {
+        alert("Please enter a 10-digit phone number");
+        return false;
+      }
+
+      if (genre == "" || status == "") {
+        alert("Please select an option for gender and employee status");
+        return false;
+      }
+
       return true;
     }
   </script>
@@ -257,26 +268,40 @@
     <!-- Create the form -->
 
     <form name="subscriptionForm" action="submit.php" method="post" onsubmit="return validateForm()">
-     <?php if (isset($_GET["e"])) {
+      <div id="alertzone">
+        <?php if (isset($_GET["e"])) {
 
-      ?>
- <div class="alert-danger">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Danger!</strong> I'm sorry, there was an error sending your subscription later.
-      </div>
-    <?php
-      }
-      ?>
-       <?php if (isset($_GET["s"])) {
+        ?>
+          <div class="alert-danger">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Danger!</strong> I'm sorry, there was an error sending your subscription later.
+          </div>
+        <?php
+        }
+        ?>
+        <?php if (isset($_GET["s"])) {
+        ?>
+          <div class="alert-succes">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Success!</strong> Thanks for subscribing
+          </div>
+        <?php
+        }
+        ?>
 
-      ?>
- <div class="alert-succes">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Success!</strong> Thanks for subscribing
+        <?php if (isset($_GET["v"])) {
+        ?>
+
+          <div class="alert-succes">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Please Check!</strong> <?php echo base64_decode($_GET["v"]); ?>
+          </div>
+
+        <?php
+        }
+        ?>
+
       </div>
-    <?php
-      }
-      ?>
       <h2>Fill Form and start with ShollTrading</h2>
 
       <div class="0">
