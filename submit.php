@@ -7,16 +7,18 @@ if (isset($_POST['submit'])) {
     $tel = $_POST["tel"];
     $genre = $_POST["genre"];
     $status = $_POST["status"];
-    $problems = validateForm($name, $surname, $email, $tel, $genre, $status);
+    $country = $_POST["country"];
+    $problems = validateForm($name, $surname, $email, $tel, $genre, $status,$country);
     if (empty($problems)) {
-        $emailsend = "miwebsite@trading.com";
+        $emailsend = "luis.rmtz@cactusgroup.mx";//Direccion de remitente se aconseja usar un correo correspondiente al dominio utilizado para evitar rechazos en server de correo
         $to = "ryd@idisk.com.mx"; //poner direccion de envio 
-        $subject = "Nuevo formulario enviado desde el sitio web";
+        $subject = "New subscription on the website $name $surname";
         $message = "Name: " . $name . "\n" .
             "Surname: " . $surname . "\n" .
             "Email: " . $email . "\n" .
             "Phone number: " . $tel . "\n" .
             "Gender: " . $genre . "\n" .
+            "Country: " . $country . "\n" .
             "Employee Status: " . $status;
 
         $headers = "From: " . $emailsend;
@@ -35,7 +37,7 @@ if (isset($_POST['submit'])) {
 }
 
 
-function validateForm($name, $surname, $email, $tel, $genre, $status)
+function validateForm($name, $surname, $email, $tel, $genre, $status,$country)
 {
     $errors = array();
 
@@ -55,6 +57,10 @@ function validateForm($name, $surname, $email, $tel, $genre, $status)
         $errors[] = "Please select an option for gender and employee status.";
     }
 
+    if (empty($country)) {
+        $errors[] = "Please select an option for country.";
+    }
+    
     if (count($errors) > 0) {
         $errorList = "<ul>";
         foreach ($errors as $error) {
