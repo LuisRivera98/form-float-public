@@ -132,8 +132,8 @@
 
     @media (min-width: 992px) and (max-width: 1399.98px) {
       form {
-        padding: 35px;
-        width: 30%;
+        padding: 20px;
+        width: 40%;
         height: auto;
       }
     }
@@ -267,7 +267,7 @@
     <div class="video-background">
       <div class="video-foreground">
         <video id="video" autoplay loop muted>
-          <source src="videoplayback.mp4" type="video/mp4">
+          <source src="vidsh.mp4" type="video/mp4">
         </video>
       </div>
     </div>
